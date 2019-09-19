@@ -1,0 +1,22 @@
+{
+  "name": "know-parser",
+  "version": "0.0.1",
+  "description": "A simple, plugin-based parser for text",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest ./tests"
+  },
+  "keywords": [
+    "data",
+    "tagging",
+    "parsing",
+    "language",
+    "parse",
+    "search"
+  ],
+  "author": "George Meadows",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.19.0"
+  }
+}
