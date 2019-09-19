@@ -1,3 +1,5 @@
+const defaultPlugins = require("./plugins");
+
 class KnowParser {
 
     /**
@@ -7,8 +9,14 @@ class KnowParser {
      * @memberof KnowParser
      */
     constructor(text) {
-        this.setText(text || "");
+        this.set(text || "");
         this._plugins = {};
+
+        // register default plugins
+        for (const name in defaultPlugins) {
+            const plugin = defaultPlugins[name];
+            this.register(plugin, name);
+        }
     }
 
     /**
