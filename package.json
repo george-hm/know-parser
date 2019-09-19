@@ -17,6 +17,7 @@
   "author": "George Meadows",
   "license": "MIT",
   "devDependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "jshint": "^2.10.2"
   }
 }
