@@ -28,7 +28,7 @@ class Phones {
      * @memberof Phones
      */
     main() {
-        const wordArray = this.instance.getText();
+        const wordArray = this.instance.getWords();
         const numsFound = [];
 
         for (let i = 0; i < wordArray.length; i++) {
@@ -38,7 +38,6 @@ class Phones {
                 const tel = this.grabHrefTel(word);
 
                 if (tel) {
-                    console.log(tel);
                     numsFound.push(tel);
                     continue;
                 }
@@ -47,7 +46,6 @@ class Phones {
             numsFound.push(...this.validate(word.replace(/\s/g, "")));
         }
         // return the numbers, no duplicates
-        console.log(numsFound);
         return [
             ...new Set(
                 numsFound.map(
