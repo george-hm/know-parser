@@ -9,7 +9,7 @@ class KnowParser {
      * @memberof KnowParser
      */
     constructor(text) {
-        this.set(text || "");
+        this.setWords(text || "");
         this._plugins = {};
 
         // register default plugins
@@ -49,10 +49,10 @@ class KnowParser {
     /**
      * Get the know-parser text
      *
-     * @returns
+     * @returns {Array}  The know-parser word list
      * @memberof KnowParser
      */
-    get() {
+    getWords() {
         return this._text;
     }
 
@@ -63,7 +63,7 @@ class KnowParser {
      * @returns {String}        know-parser text
      * @memberof KnowParser
      */
-    set(text) {
+    setWords(text) {
         this._text = text.split("\n");
 
         return this._text;
@@ -77,7 +77,7 @@ class KnowParser {
      * @returns {*}                   Result(s) from the plugin
      * @memberof KnowParser
      */
-    call(pluginName, ...args) {
+    get(pluginName, ...args) {
         if (!Object.keys(this._plugins).includes(pluginName)) {
             return [];
         }
