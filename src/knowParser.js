@@ -64,7 +64,11 @@ class KnowParser {
      * @memberof KnowParser
      */
     setLines(text) {
-        this._text = text.split("\n");
+        if (!text) {
+            this._text = [];
+        } else {
+            this._text = text.split("\n");
+        }
 
         return this._text;
     }
