@@ -8,7 +8,7 @@
   },
   "main": "main.js",
   "scripts": {
-    "test": "jest ./tests"
+    "test": "jest ./__tests__/*.test.js"
   },
   "keywords": [
     "data",
