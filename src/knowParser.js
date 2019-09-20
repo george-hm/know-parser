@@ -9,7 +9,7 @@ class KnowParser {
      * @memberof KnowParser
      */
     constructor(text) {
-        this.setWords(text || "");
+        this.setLines(text || "");
         this._plugins = {};
 
         // register default plugins
@@ -22,7 +22,7 @@ class KnowParser {
     /**
      * Register your plugin with know-parser.
      *
-     * @param {Function}  plugin  Plugin to register
+     * @param {Function}  plugin    Plugin to register
      * @param {String}    [name]    Name of the plugin
      * @memberof KnowParser
      */
@@ -36,7 +36,7 @@ class KnowParser {
             !plugin.prototype.constructor.name ||
             !plugin.prototype.main
         ) {
-            throw new Error("know-parser: Cannot validate plugin to be registered.");
+            throw new Error("know-parser - cannot validate plugin to be registered.");
         }
 
         if (!name) {
@@ -52,7 +52,7 @@ class KnowParser {
      * @returns {Array}  The know-parser word list
      * @memberof KnowParser
      */
-    getWords() {
+    getLines() {
         return this._text;
     }
 
@@ -63,7 +63,7 @@ class KnowParser {
      * @returns {String}        know-parser text
      * @memberof KnowParser
      */
-    setWords(text) {
+    setLines(text) {
         this._text = text.split("\n");
 
         return this._text;
@@ -85,7 +85,7 @@ class KnowParser {
         try {
             return this._plugins[pluginName].main(...args);
         } catch (err) {
-            throw `know-parser plugin '${pluginName}' error: ` + err;
+            throw new Error(`know-parser plugin '${pluginName}' error: ${err}`);
         }
     }
 }

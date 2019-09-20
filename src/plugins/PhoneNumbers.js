@@ -4,16 +4,16 @@
  * @class PhoneNumbers
  * @author George Meadows
  */
-class Phones {
+class KnowPhones {
 
     /**
      * Creates an instance of PhoneNumbers.
      * Also creates our regex etc.
      * @param {KnowParser}  knowInstance  The KnowParser instance
-     * @memberof Phones
+     * @memberof KnowPhones
      */
     constructor(knowInstance) {
-        this._regex = [
+        this.regex = [
             /(\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10,13})/g,
             /(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))/g,
             /[+]44(7|1)\d{9}/g
@@ -25,17 +25,17 @@ class Phones {
      * Gathers phone numbers from a string
      *
      * @returns  {Array}  All the numbers found
-     * @memberof Phones
+     * @memberof KnowPhones
      */
     main() {
-        const wordArray = this.instance.getWords();
+        const lineList = this.instance.getWords();
         const numsFound = [];
 
-        for (let i = 0; i < wordArray.length; i++) {
-            const word = wordArray[i];
+        for (let i = 0; i < lineList.length; i++) {
+            const line = lineList[i];
 
-            if (word.includes("tel:")) {
-                const tel = this.grabHrefTel(word);
+            if (line.includes("tel:")) {
+                const tel = this.grabHrefTel(line);
 
                 if (tel) {
                     numsFound.push(tel);
@@ -43,7 +43,7 @@ class Phones {
                 }
             }
 
-            numsFound.push(...this.validate(word.replace(/\s/g, "")));
+            numsFound.push(...this.validate(line.replace(/\s/g, "")));
         }
         // return the numbers, no duplicates
         return [
@@ -58,12 +58,12 @@ class Phones {
     /**
      * Grabs the href="tel:xxxx" and tries to ensure its a phone number
      *
-     * @param   {Array}    word  A word containing "tel:"
+     * @param   {Array}    line  A line containing "tel:"
      * @returns {String}         The phone number (or null if not found)
-     * @memberof Phones
+     * @memberof KnowPhones
      */
-    grabHrefTel(word) {
-        const telWord = word.split("tel:").pop().replace(/\s/g, "").split("'")[0].split("\"")[0].split(",")[0];
+    grabHrefTel(line) {
+        const telWord = line.split("tel:").pop().replace(/\s/g, "").split("'")[0].split("\"")[0].split(",")[0];
 
         if (/[A-z<>"']/.test(telWord)) {
             return null;
@@ -73,17 +73,17 @@ class Phones {
     }
 
     /**
-     * Run regex on a word
+     * Run regex on a line, returning results
      *
-     * @param {String}  word  A word to run regex on
+     * @param {String}  line  A word to run regex on
      * @returns
-     * @memberof Phones
+     * @memberof KnowPhones
      */
-    validate(word) {
+    validate(line) {
         const results = [];
-        for (let x = 0; x < this._regex.length; x++) {
-            const currentRegex = this._regex[x];
-            const result = word.match(currentRegex) || word.replace(/-/g, "").match(currentRegex);
+        for (let x = 0; x < this.regex.length; x++) {
+            const currentRegex = this.regex[x];
+            const result = line.match(currentRegex) || line.replace(/-/g, "").match(currentRegex);
             if (result) {
                 results.push(...result.map(num => num.replace(/-/g, "")));
             }
@@ -93,4 +93,4 @@ class Phones {
     }
 }
 
-module.exports = Phones;
+module.exports = KnowPhones;

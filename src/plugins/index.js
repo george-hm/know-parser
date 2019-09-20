@@ -1,3 +1,3 @@
 module.exports = {
-    "phones": require("./PhoneNumbers.js")
+    "phones": require("./phoneNumbers.js")
 };
