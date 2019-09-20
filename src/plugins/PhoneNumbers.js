@@ -28,7 +28,7 @@ class KnowPhones {
      * @memberof KnowPhones
      */
     main() {
-        const lineList = this.instance.getWords();
+        const lineList = this.instance.lines;
         const numsFound = [];
 
         for (let i = 0; i < lineList.length; i++) {
