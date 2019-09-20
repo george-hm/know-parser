@@ -9,7 +9,7 @@ class KnowParser {
      * @memberof KnowParser
      */
     constructor(text) {
-        this.setLines(text || "");
+        this.lines = text || "";
         this._plugins = {};
 
         // register default plugins
@@ -43,34 +43,49 @@ class KnowParser {
             name = plugin.prototype.constructor.name;
         }
 
-        this._plugins[name] = new plugin(this);
-    }
-
-    /**
-     * Get the know-parser text
-     *
-     * @returns {Array}  The know-parser word list
-     * @memberof KnowParser
-     */
-    getLines() {
-        return this._text;
-    }
-
-    /**
-     * Set the text for know-parser to look at
-     *
-     * @param   {String}  text  Text to run plugins on
-     * @returns {String}        know-parser text
-     * @memberof KnowParser
-     */
-    setLines(text) {
-        if (!text) {
-            this._text = [];
-        } else {
-            this._text = text.split("\n");
+        if (this._plugins[name]) {
+            throw new Error("know-parser - plugin already registered.");
         }
 
+        this._plugins[name] = new plugin(this);
+
+        return this;
+    }
+
+    /**
+     * Unregister a know-parser plugin
+     *
+     * @param    {String} pluginName
+     * @returns  {KnowParser}
+     * @memberof KnowParser
+     */
+    unregister(pluginName) {
+        if (pluginName) {
+            delete this._plugins[pluginName];
+        }
+
+        return this;
+    }
+
+    /**
+     * know-parser lines
+     *
+     * @type {Array}
+     * @memberof KnowParser
+     */
+    set lines(text) {
+        if (Array.isArray(text)) {
+            text = text.join("\n");
+        }
+        this._text = text;
         return this._text;
+    }
+
+    get lines() {
+        if (!this._text) {
+            return [];
+        }
+        return this._text.split("\n");
     }
 
     /**
