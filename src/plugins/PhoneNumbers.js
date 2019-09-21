@@ -73,7 +73,7 @@ class KnowPhones {
     }
 
     /**
-     * Run regex on a line, returning results
+     * Run regex on a line, returning results and removing duplicates
      *
      * @param {String}  line  A word to run regex on
      * @returns
@@ -83,13 +83,17 @@ class KnowPhones {
         const results = [];
         for (let x = 0; x < this.regex.length; x++) {
             const currentRegex = this.regex[x];
-            const result = line.match(currentRegex) || line.replace(/-/g, "").match(currentRegex);
-            if (result) {
-                results.push(...result.map(num => num.replace(/-/g, "")));
+            const matches = line.match(currentRegex) || line.replace(/-/g, "").match(currentRegex);
+            if (matches) {
+                results.push(...matches.map(num => num.replace(/-/g, "")));
             }
         }
 
-        return results;
+        return [
+            ... new Set(
+                results.map(num => num.replace(/\s/g, ""))
+            )
+        ];
     }
 }
 
