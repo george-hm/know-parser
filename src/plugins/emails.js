@@ -5,8 +5,8 @@ class KnowEmails {
         this.instance = knowParser;
     }
 
-    main() {
-        const lineList = this.instance.lines;
+    main(lines) {
+        const lineList = lines;
         const emails = [];
 
         for (let i = 0; i < lineList.length; i++) {
