@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/george-hm/know-parser.git"
   },
-  "main": ".src/knowParser.js",
+  "main": "./src/knowParser.js",
   "scripts": {
     "test": "jshint ./src && jest ./__tests__/*.test.js"
   },
