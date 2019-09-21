@@ -1,4 +1,4 @@
-const PhonesPlugin = require("../src/plugins/phoneNumbers.js");
+const PhonesPlugin = require("../src/plugins/phones.js");
 
 describe("phoneNumbers_plugin", () => {
     describe("constructor", () => {

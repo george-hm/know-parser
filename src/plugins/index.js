@@ -1,4 +1,4 @@
 module.exports = {
-    "phones": require("./phoneNumbers.js"),
+    "phones": require("./phones.js"),
     "emails": require("./emails.js")
 };
