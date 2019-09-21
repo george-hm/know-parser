@@ -4,19 +4,23 @@
   "description": "A simple, plugin-based parser for text",
   "repository": {
     "type": "git",
-    "url": "git://gitlab.com/georgehm/know-parser.git"
+    "url": "git+https://github.com/george-hm/know-parser.git"
   },
-  "main": "main.js",
+  "main": ".src/knowParser.js",
   "scripts": {
     "test": "jest ./__tests__/*.test.js"
   },
   "keywords": [
     "data",
-    "tagging",
-    "parsing",
+    "email",
     "language",
     "parse",
-    "search"
+    "parser",
+    "parsing",
+    "phone",
+    "plugin",
+    "search",
+    "tagging"
   ],
   "author": "George Meadows",
   "license": "MIT",
@@ -24,5 +28,10 @@
     "axios": "^0.19.0",
     "jest": "^24.9.0",
     "jshint": "^2.10.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/george-hm/know-parser/issues",
+    "email": "georgehm@pm.me"
+  },
+  "homepage": "https://github.com/george-hm/know-parser/"
 }
