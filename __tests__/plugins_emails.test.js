@@ -1,42 +1,26 @@
 const EmailPlugin = require("../src/plugins/emails.js");
 
 describe("emails_plugin", () => {
-    describe("constructor", () => {
-        it("should set instance param", () => {
-            const instance = "Not a real instance";
-            const plugin = new EmailPlugin(instance);
-            expect(plugin.instance).toBe(instance);
-        });
-    });
     describe("main", () => {
         it("should not call extractEmails on bad data", () => {
-            const instance = {lines:["foo", "bar"]};
-            const plugin = new EmailPlugin(instance);
+            const lines = ["foo", "bar"];
+            const plugin = new EmailPlugin();
             plugin.extractEmails = jest.fn(() => []);
 
-            plugin.main();
+            plugin.main(lines);
             expect(plugin.extractEmails.mock.calls.length).toEqual(0);
-        });
-        it("should give useful lines to extractEmails", () => {
-            const instance = {lines:["someemail@fakedomain.com"]};
-            const plugin = new EmailPlugin(instance);
-            plugin.extractEmails = jest.fn(() => []);
-
-            plugin.main();
-            expect(plugin.extractEmails.mock.calls.length).toEqual(1);
         });
         it("should return results", () => {
             const emails = [
                 "knowparser@implink.org",
                 "notarealemail@somefakedomain.com"
             ];
-            const instance = {lines:emails};
-            const plugin = new EmailPlugin(instance);
+            const plugin = new EmailPlugin();
             plugin.extractEmails = jest.fn();
             plugin.extractEmails.mockImplementationOnce(jest.fn(() => [emails[0]]));
             plugin.extractEmails.mockImplementationOnce(jest.fn(() => [emails[1]]));
 
-            expect(plugin.main()).toEqual(emails);
+            expect(plugin.main(emails)).toEqual(emails);
             expect(plugin.extractEmails.mock.calls.length).toEqual(2);
         });
         it("should not return bad data", () => {
@@ -44,11 +28,10 @@ describe("emails_plugin", () => {
                 "knowparser@implink.org",
                 "this is not an email address"
             ];
-            const instance = {lines:lines};
-            const plugin = new EmailPlugin(instance);
+            const plugin = new EmailPlugin();
             plugin.extractEmails = jest.fn(() => [lines[0]]);
 
-            expect(plugin.main()).toEqual([lines[0]]);
+            expect(plugin.main(lines)).toEqual([lines[0]]);
             expect(plugin.extractEmails.mock.calls.length).toEqual(1);
         });
     });

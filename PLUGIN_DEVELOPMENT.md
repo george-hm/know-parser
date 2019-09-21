@@ -17,11 +17,11 @@ Here's a basic template for a parser plugin:
     class MyPlugin {
 
         constructor(knowParser) {
-            this.instance = knowParser;
+            //optionally define a constructor
         }
 
-        main() {
-            const lines = this.instance.lines;
+        main(lines) {
+            // lines is equal to the knowParser's lines
             // parser code here
         }
     }
@@ -31,40 +31,34 @@ Here's a basic template for a parser plugin:
 
 ### Step by step explanation
 
-1. When you register your plugin via `knowParser.register()`, the parser instance is passed to your plugin, you should save this instance as it will give you access to the text to parse.
+1. When you register your plugin via `knowParser.register()`, the parser instance is passed to your plugin's constructor. This is usually for special cases, you probably won't need to define your own constructor unless you know what you're doing.
 
     ```javascript
         class MyPlugin {
             constructor(knowParser) {
-                this.instance = knowParser;
+                //do as you wish
             }
         }
     ```
 
-2. Every plugin must have a method called `main()`, this is the method that is called when running `knowParser.get("MyPlugin");`
+2. Every plugin must have a method called `main()`, this is the method that is called when running `knowParser.get("MyPlugin", ...[args]);`. The knowParser's lines are ALWAYS passed here as the first argument. Additional arguments passed in through .get will also be accessible.
 
     ```javascript
-        main() {
-            // the lines given to knowParser
-            const lines = this.instance.lines;
+        main(lines, myArg1) {
+            //if you called knowParser.get("MyPlugin", myArg1)
         }
     ```
 
-3. Your plugin should use the text given to knowParser (DO NOT MODIFY  THIS)
+3. Your plugin should return an array of results, usually by processing the lines array
 
-    ```javascript
-        knowParser.lines = "one\ntwo";
-        knowParser.get("MyPlugin");
+   ```javascript
+        const emails = knowParser.get("MyPluginThatDetectsEmails");
 
-        // knowParser.lines would be ["one", "two"]
+        // This is expected to return [] on no results, or full of results
+        console.log(emails);
     ```
 
-4. Your plugin should return an array of results
-
-    ```javascript
-        // returns [] on no result, or full of results
-        knowParser.get("MyPlugin");
-    ```
+    
 
 ## knowParser.register()
 
@@ -92,11 +86,7 @@ knowParser.lines = "here is some text";
 
 class MyPlugin {
 
-    constructor(knowParser) {
-        this.instance = knowParser;
-    }
-
-    main(foo, bar, baz) {
+    main(lines, foo, bar, baz) {
         return `Foo: ${foo}, Bar: ${bar}, Baz: ${baz}`;
     }
 }
@@ -115,14 +105,9 @@ If the given text is an array, then it is first joined with newlines before bein
 
 Please do not modify this inside of your plugin as it could cause problems for the other know-parser plugins.
 
-## Standards and Best Practices
+## Standards and Best Practices on submitting plugins
 
-A few simple guidelines you should try to follow:
-
-1. Your plugin should all be in one file, with one class
-2. You should not modify `knowParser.lines` within your plugin, if you wish to do something like splitting on each space, create a copy of this variable
-3. Your plugin should gather the knowParser text during the `main()` function call, in order to have the latest text changes
-4. Have fun!
+A plugin should generally be within one file and class, self contained, and ultimately geared towards solving 1 specific problem.
 
 ## Contributing
 

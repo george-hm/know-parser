@@ -101,8 +101,10 @@ class KnowParser {
             return [];
         }
 
+        //We will pass each plugin a clone of .lines for safety
+        const lines = Array.from(this.lines);
         try {
-            return this._plugins[pluginName].main(...args);
+            return this._plugins[pluginName].main(lines, ...args);
         } catch (err) {
             throw new Error(`know-parser plugin '${pluginName}' error: ${err}`);
         }

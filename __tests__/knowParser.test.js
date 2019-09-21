@@ -194,14 +194,16 @@ describe("knowParser", () => {
         });
         it("should pass on arguments", () => {
             const parser = new knowParser();
+            parser.lines = ['some', 'lines'];
             const argsToPass = [123, 456, 789];
+            const expected = [parser.lines].concat(argsToPass);
 
             function TestPlugin() {}
             TestPlugin.prototype.main = jest.fn((foo, bar, baz) => []);
 
             parser.register(TestPlugin);
             parser.get("TestPlugin", argsToPass[0], argsToPass[1], argsToPass[2]);
-            expect(TestPlugin.prototype.main.mock.calls[0]).toEqual(argsToPass);
+            expect(TestPlugin.prototype.main.mock.calls[0]).toEqual(expected);
             expect(TestPlugin.prototype.main.mock.calls.length).toEqual(1);
         });
         it("should give the correct text to the plugin", () => {

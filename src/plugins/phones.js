@@ -4,22 +4,12 @@
  * @class PhoneNumbers
  * @author George Meadows
  */
+const regex = [
+    /(\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10,13})/g,
+    /(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))/g,
+    /[+]44(7|1)\d{9}/g
+];
 class KnowPhones {
-
-    /**
-     * Creates an instance of PhoneNumbers.
-     * Also creates our regex etc.
-     * @param {KnowParser}  knowInstance  The KnowParser instance
-     * @memberof KnowPhones
-     */
-    constructor(knowInstance) {
-        this.regex = [
-            /(\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10,13})/g,
-            /(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))/g,
-            /[+]44(7|1)\d{9}/g
-        ];
-        this.instance = knowInstance;
-    }
 
     /**
      * Gathers phone numbers from a string
@@ -27,8 +17,8 @@ class KnowPhones {
      * @returns  {Array}  All the numbers found
      * @memberof KnowPhones
      */
-    main() {
-        const lineList = this.instance.lines;
+    main(lines) {
+        const lineList = lines;
         const numsFound = [];
 
         for (let i = 0; i < lineList.length; i++) {
@@ -81,8 +71,8 @@ class KnowPhones {
      */
     validate(line) {
         const results = [];
-        for (let x = 0; x < this.regex.length; x++) {
-            const currentRegex = this.regex[x];
+        for (let x = 0; x < regex.length; x++) {
+            const currentRegex = regex[x];
             const matches = line.match(currentRegex) || line.replace(/-/g, "").match(currentRegex);
             if (matches) {
                 results.push(...matches.map(num => num.replace(/-/g, "")));

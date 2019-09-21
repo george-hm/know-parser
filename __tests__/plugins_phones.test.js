@@ -1,28 +1,21 @@
 const PhonesPlugin = require("../src/plugins/phones.js");
 
 describe("phoneNumbers_plugin", () => {
-    describe("constructor", () => {
-        it("should set instance param", () => {
-            const instance = "Not a real instance";
-            const plugin = new PhonesPlugin(instance);
-            expect(plugin.instance).toBe(instance);
-        });
-    });
     describe("main", () => {
         it("should not call grabHrefTel on bad data", () => {
-            const instance = {lines:["foo", "bar"]};
-            const plugin = new PhonesPlugin(instance);
+            const lines = ["foo", "bar"];
+            const plugin = new PhonesPlugin();
             plugin.grebHrefTel = jest.fn(() => []);
 
-            plugin.main();
+            plugin.main(lines);
             expect(plugin.grebHrefTel.mock.calls.length).toEqual(0);
         });
         it("should give useful lines to grabHrefTel", () => {
-            const instance = {lines:["tel:'+44 1632 960983'"]};
-            const plugin = new PhonesPlugin(instance);
+            const lines = ["tel:'+44 1632 960983'"];
+            const plugin = new PhonesPlugin();
             plugin.grabHrefTel = jest.fn();
 
-            plugin.main();
+            plugin.main(lines);
             expect(plugin.grabHrefTel.mock.calls.length).toEqual(1);
         });
         it("should return results", () => {
@@ -30,12 +23,11 @@ describe("phoneNumbers_plugin", () => {
                 "href='tel:+44 1632 960983'",
                 "+44 1632 960984"
             ];
-            const instance = {lines:phones};
-            const plugin = new PhonesPlugin(instance);
+            const plugin = new PhonesPlugin();
             plugin.grabHrefTel = jest.fn(() => phones[0].split("tel:")[1].split("'")[0]);
             plugin.validate = jest.fn(() => [phones[1]]);
 
-            expect(plugin.main()).toEqual(
+            expect(plugin.main(phones)).toEqual(
                 [
                     phones[0].split("tel:")[1].split("'")[0].replace(/\s/g, ""),
                     phones[1].replace(/\s/g, "")
