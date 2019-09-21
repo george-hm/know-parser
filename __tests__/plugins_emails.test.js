@@ -1,13 +1,6 @@
 const EmailPlugin = require("../src/plugins/emails.js");
 
 describe("emails_plugin", () => {
-    describe("constructor", () => {
-        it("should set instance param", () => {
-            const instance = "Not a real instance";
-            const plugin = new EmailPlugin(instance);
-            expect(plugin.instance).toBe(instance);
-        });
-    });
     describe("main", () => {
         it("should not call extractEmails on bad data", () => {
             const lines = ["foo", "bar"];

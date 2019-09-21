@@ -1,9 +1,5 @@
+const regex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
 class KnowEmails {
-
-    constructor(knowParser) {
-        this.emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
-        this.instance = knowParser;
-    }
 
     main(lines) {
         const lineList = lines;
@@ -36,7 +32,7 @@ class KnowEmails {
         }
 
         const results = [];
-        const match = query.match(this.emailRegex);
+        const match = query.match(regex);
         if (match) {
             results.push(...match);
         }

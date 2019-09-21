@@ -1,13 +1,6 @@
 const PhonesPlugin = require("../src/plugins/phones.js");
 
 describe("phoneNumbers_plugin", () => {
-    describe("constructor", () => {
-        it("should set instance param", () => {
-            const instance = "Not a real instance";
-            const plugin = new PhonesPlugin(instance);
-            expect(plugin.instance).toBe(instance);
-        });
-    });
     describe("main", () => {
         it("should not call grabHrefTel on bad data", () => {
             const lines = ["foo", "bar"];
