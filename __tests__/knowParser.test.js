@@ -204,5 +204,25 @@ describe("knowParser", () => {
             expect(TestPlugin.prototype.main.mock.calls[0]).toEqual(argsToPass);
             expect(TestPlugin.prototype.main.mock.calls.length).toEqual(1);
         });
+        it("should give the correct text to the plugin", () => {
+            const text = "here is some testing\ntest";
+            const moreText = "more testing text\nhere";
+            const parser = new knowParser(text);
+
+            class TestingPlugin {
+                constructor(knowParser) {
+                    this.instance = knowParser;
+                }
+                main() {
+                    return this.instance.lines;
+                }
+            }
+
+            parser.register(TestingPlugin);
+            expect(parser.get("TestingPlugin")).toEqual(parser.lines);
+
+            parser.lines = moreText;
+            expect(parser.get("TestingPlugin")).toEqual(parser.lines);
+        });
     });
 });
