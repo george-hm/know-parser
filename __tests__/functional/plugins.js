@@ -3,7 +3,7 @@ const knowParser = require("../../src/knowParser.js");
 
 async function main() {
     const domains = [
-        // enter domains here
+        // domains here
     ];
 
     for (let i = 0; i < domains.length; i++) {
@@ -13,7 +13,9 @@ async function main() {
         const result = await axios(`https://www.${dom}.com`);
         const instance = new knowParser(result.data);
 
-        console.log(`NUMBERS: ${instance.get("phones")}`);
+        console.log(`PHONES: ${instance.get("phones")}`);
+        console.log(`EMAILS: ${instance.get("emails")}`);
+        console.log("\n");
     }
 }
 
