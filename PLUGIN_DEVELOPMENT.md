@@ -58,8 +58,6 @@ Here's a basic template for a parser plugin:
         console.log(emails);
     ```
 
-    
-
 ## knowParser.register()
 
 `knowParser.register` should be used when giving your plugin to know-parser. The first argument is your plugin, the second argument is the name if the plugin. If the second argument is omitted then the name of your plugin will be the name of the plugin class.
@@ -119,6 +117,6 @@ If you wish to submit your plugin to be included by default, do not hesitate to 
 
 The default plugins should give you some insight on how to create your own, you can find these in `./src/plugins`
 
-If you have any questions or require help, please feel free to contact my via email: `georgehm@pm.me`
+If you have any questions or require help, please feel free to contact me via email: `georgehm@pm.me`
 
 Have fun!
