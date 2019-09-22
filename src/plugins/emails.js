@@ -1,6 +1,19 @@
 const regex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
+/**
+ * A know-parser plugin to gather email addresses
+ *
+ * @class KnowEmails
+ * @author George Meadows
+ */
 class KnowEmails {
 
+    /**
+     * Gathers email addresses from an array of strings
+     *
+     * @param {Array}  lines  Lines from know-parser
+     * @returns {Array}       All emails found
+     * @memberof KnowEmails
+     */
     main(lines) {
         const lineList = lines;
         const emails = [];
@@ -18,6 +31,13 @@ class KnowEmails {
         return [...new Set(emails)];
     }
 
+    /**
+     * Runs regex on a string to find emails, returning matches
+     *
+     * @param {String}  query  A piece of text to check for emails
+     * @returns
+     * @memberof KnowEmails
+     */
     extractEmails(query) {
         if (!query) {
             return [];
