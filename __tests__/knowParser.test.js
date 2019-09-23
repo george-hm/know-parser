@@ -37,7 +37,7 @@ describe("knowParser", () => {
 
                 expect(
                     () => parser.register(plugin)
-                ).toThrow("know-parser - cannot validate plugin to be registered.");
+                ).toThrow("know-parser - failed to register");
             }
         });
         it("should register a plugin", () => {

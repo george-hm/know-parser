@@ -36,7 +36,7 @@ class KnowParser {
             !plugin.prototype.constructor.name ||
             !plugin.prototype.main
         ) {
-            throw new Error("know-parser - cannot validate plugin to be registered.");
+            throw new Error("know-parser - failed to register plugin. Is it a class with 'main' method?");
         }
 
         if (!name) {
