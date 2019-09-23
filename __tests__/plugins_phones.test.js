@@ -10,7 +10,7 @@ describe("phoneNumbers_plugin", () => {
             plugin.main(lines);
             expect(plugin.grebHrefTel.mock.calls.length).toEqual(0);
         });
-        it("should give useful lines to grabHrefTel", () => {
+        it("should call grabHrefTel", () => {
             const lines = ["tel:'+44 1632 960983'"];
             const plugin = new PhonesPlugin();
             plugin.grabHrefTel = jest.fn();
@@ -33,8 +33,8 @@ describe("phoneNumbers_plugin", () => {
                     phones[1].replace(/\s/g, "")
                 ]
             );
-            expect(plugin.grabHrefTel.mock.calls.length).toEqual(1);
-            expect(plugin.validate.mock.calls.length).toEqual(1);
+            expect(plugin.grabHrefTel.mock.calls.length).toEqual(phones.length);
+            expect(plugin.validate.mock.calls.length).toEqual(phones.length);
         });
     });
     describe("grabHrefTel", () => {

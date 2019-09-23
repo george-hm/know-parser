@@ -24,13 +24,9 @@ class KnowPhones {
         for (let i = 0; i < lineList.length; i++) {
             const line = lineList[i];
 
-            if (line.includes("tel:")) {
-                const tel = this.grabHrefTel(line);
-
-                if (tel) {
-                    numsFound.push(tel);
-                    continue;
-                }
+            const tel = this.grabHrefTel(line);
+            if (tel) {
+                numsFound.push(tel);
             }
 
             numsFound.push(...this.validate(line.replace(/\s/g, "")));
@@ -53,6 +49,10 @@ class KnowPhones {
      * @memberof KnowPhones
      */
     grabHrefTel(line) {
+        if (!line.includes("tel:")) {
+            return null;
+        }
+
         const telWord = line.split("tel:").pop().replace(/\s/g, "").split("'")[0].split("\"")[0].split(",")[0];
 
         if (/[A-z<>"']/.test(telWord)) {
