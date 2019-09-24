@@ -15,6 +15,7 @@ async function main() {
 
         console.log(`PHONES: ${instance.get("phones")}`);
         console.log(`EMAILS: ${instance.get("emails")}`);
+        console.log(`LINKS: ${JSON.stringify(instance.get("links"), null, 2)}`);
         console.log("\n");
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "know-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple, plugin-based parser for text",
   "repository": {
     "type": "git",
@@ -8,7 +8,7 @@
   },
   "main": "./src/knowParser.js",
   "scripts": {
-    "test": "jshint ./src && jest ./__tests__/*.test.js"
+    "test": "jshint ./src && jest --verbose ./__tests__/*.test.js"
   },
   "keywords": [
     "data",

@@ -1,22 +1,14 @@
 const PhonesPlugin = require("../src/plugins/phones.js");
 
-describe("phoneNumbers_plugin", () => {
+describe("phones_plugin", () => {
     describe("main", () => {
-        it("should not call grabHrefTel on bad data", () => {
-            const lines = ["foo", "bar"];
-            const plugin = new PhonesPlugin();
-            plugin.grebHrefTel = jest.fn(() => []);
-
-            plugin.main(lines);
-            expect(plugin.grebHrefTel.mock.calls.length).toEqual(0);
-        });
         it("should call grabHrefTel", () => {
             const lines = ["tel:'+44 1632 960983'"];
             const plugin = new PhonesPlugin();
             plugin.grabHrefTel = jest.fn();
 
             plugin.main(lines);
-            expect(plugin.grabHrefTel.mock.calls.length).toEqual(1);
+            expect(plugin.grabHrefTel.mock.calls.length).toEqual(lines.length);
         });
         it("should return results", () => {
             const phones = [
@@ -35,6 +27,15 @@ describe("phoneNumbers_plugin", () => {
             );
             expect(plugin.grabHrefTel.mock.calls.length).toEqual(phones.length);
             expect(plugin.validate.mock.calls.length).toEqual(phones.length);
+        });
+        it("should return an empty array on no results", () => {
+            const lines = [
+                "foo",
+                "bar"
+            ];
+            const plugin = new PhonesPlugin();
+
+            expect(plugin.main(lines)).toEqual([]);
         });
     });
     describe("grabHrefTel", () => {
