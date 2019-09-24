@@ -1,6 +1,6 @@
 # know-parser
-----
 **Parses a piece of text to grab the most useful data**
+
 [![](https://img.shields.io/npm/v/know-parser.svg)](https://www.npmjs.com/package/know-parser)
 [![](https://img.shields.io/npm/dm/know-parser.svg)](https://www.npmjs.com/package/know-parser)
 [![Coverage Status](https://coveralls.io/repos/github/george-hm/know-parser/badge.svg?branch=master)](https://coveralls.io/github/george-hm/know-parser?branch=master)
