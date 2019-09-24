@@ -51,12 +51,8 @@ class KnowEmails {
             return [];
         }
 
-        const results = [];
-        const match = query.match(regex);
-        if (match) {
-            results.push(...match);
-        }
-        return results;
+        const results = query.match(regex);
+        return results || [];
     }
 }
 
