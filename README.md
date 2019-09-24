@@ -1,10 +1,11 @@
 # know-parser
-**Parses a piece of text to grab the most useful data**
 
 [![](https://img.shields.io/npm/v/know-parser.svg)](https://www.npmjs.com/package/know-parser)
 [![](https://img.shields.io/npm/dm/know-parser.svg)](https://www.npmjs.com/package/know-parser)
 [![Coverage Status](https://coveralls.io/repos/github/george-hm/know-parser/badge.svg?branch=master)](https://coveralls.io/github/george-hm/know-parser?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/george-hm/know-parser/badge.svg)](https://snyk.io/test/github/george-hm/know-parser)
+
+**Parses a piece of text to grab the most useful data**
 
 know-parser is a JavaScript plugin-based package designed to extract useful data from a piece of text
 
@@ -29,7 +30,7 @@ const emails = knowParser.get("emails");
 console.log(emails); // output: ["knowparser@implink.org"]
 ```
 
-### Detailed walkthrrough
+### Detailed walkthrough
 
 1. Create a new instance of `know-parser`
 
