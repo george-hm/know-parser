@@ -8,7 +8,8 @@
   },
   "main": "./src/knowParser.js",
   "scripts": {
-    "test": "jshint ./src && jest --verbose ./__tests__/*.test.js"
+    "test": "jshint ./src && jest ./__tests__/*.test.js --verbose",
+    "coverage": "jshint ./src && jest ./__tests__/*.test.js --coverage --coverageReporters=text-lcov && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "data",
@@ -26,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "axios": "^0.19.0",
+    "coveralls": "^3.0.6",
     "jest": "^24.9.0",
     "jshint": "^2.10.2"
   },
