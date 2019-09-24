@@ -70,6 +70,13 @@ const phones = knowParser.get('phones');
 console.log(phones); // An array of phone numbers
 ```
 
+### links
+
+```javascript
+const links = knowParser.get('links');
+console.log(links); // An array of links (starting with http/https/www)
+```
+
 ## Developing Parser Plugins
 
 Because of the plugin-based nature of this package, it's surprisingly simple to create your own plugins for know-parser.
