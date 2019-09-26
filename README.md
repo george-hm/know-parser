@@ -81,7 +81,14 @@ console.log(phones); // An array of phone numbers
 
 ```javascript
 const links = knowParser.get('links');
-console.log(links); // An array of links (starting with http/https/www)
+console.log(links); // An array of links (starting with http/https/www) e.g. "https://www.example.com"
+```
+
+### domains
+
+```javascript
+const domains = knowParser.get('domains');
+console.log(domains); // an array of domains e.g. "example.com"
 ```
 
 ## Developing Parser Plugins
