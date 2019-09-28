@@ -60,9 +60,7 @@ class KnowParser {
      * @memberof KnowParser
      */
     unregister(pluginName) {
-        if (pluginName) {
-            delete this._plugins[pluginName];
-        }
+        delete this._plugins[pluginName];
 
         return this;
     }
