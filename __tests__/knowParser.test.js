@@ -226,5 +226,20 @@ describe("knowParser", () => {
             parser.lines = moreText;
             expect(parser.get("TestingPlugin")).toEqual(parser.lines);
         });
+        it("should return an empty array on invalid plugin", () => {
+            const parser = new knowParser();
+            expect(parser.get("not a real plugin")).toEqual([]);
+        });
+        it("should error correctly", () => {
+            const parser = new knowParser();
+            class TestingPlugin {
+                main() {
+                    throw "fake error";
+                }
+            }
+
+            parser.register(TestingPlugin);
+            expect(() => parser.get("TestingPlugin")).toThrow("fake error");
+        });
     });
 });

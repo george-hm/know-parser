@@ -51,6 +51,10 @@ describe("emails_plugin", () => {
 
             expect(plugin.extractEmails(lineArray)).toEqual(lineArray);
         });
+        it("should return an empty array on no data", () => {
+            const plugin = new EmailPlugin();
+            expect(plugin.extractEmails()).toEqual([]);
+        });
         it("should return an empty array on no matches", () => {
             const line = "bunch of garbage @stuff.org";
             const anotherLine = "more useless data that isn't an email";
