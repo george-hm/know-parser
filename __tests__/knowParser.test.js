@@ -1,6 +1,5 @@
 "use strict";
 
-jest.dontMock("../src/knowParser.js");
 const knowParser = require("../src/knowParser.js");
 
 describe("knowParser", () => {

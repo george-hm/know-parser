@@ -1,6 +1,6 @@
 const DomainsPlugin = require("../src/plugins/domains.js");
 const parseDomain = require("parse-domain");
-jest.mock("parse-domain", () => jest.fn());
+jest.mock("parse-domain");
 
 describe("plugin_domains", () => {
     describe("constructor", () => {
