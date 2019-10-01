@@ -446,3 +446,5 @@ class KnowAddress {
             .replace(/&#xE9;/, 'é');
     }
 }
+
+module.exports = KnowAddress;
