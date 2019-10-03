@@ -1,3 +1,4 @@
+const phoneFormat = require("phoneformat.js");
 /**
  * Gathers from numbers from a piece of text
  *
@@ -17,9 +18,9 @@ class KnowPhones {
      * @returns  {Array}  All the numbers found
      * @memberof KnowPhones
      */
-    main(lines) {
-        const lineList = lines;
+    main(lineList) {
         const numsFound = [];
+        const toLookup = [];
 
         for (let i = 0; i < lineList.length; i++) {
             const line = lineList[i];
@@ -29,8 +30,16 @@ class KnowPhones {
                 numsFound.push(tel);
             }
 
-            numsFound.push(...this.validate(line.replace(/\s/g, "")));
+            numsFound.push(...this.runRegex(line.replace(/\s/g, "")));
+
+            const digits = line.replace(/[^\d+]/g, '');
+            if (digits.length > 5) {
+                toLookup.push(digits);
+            }
         }
+
+        numsFound.push(...this.validate(toLookup));
+
         // return the numbers, no duplicates
         return [
             ...new Set(
@@ -39,6 +48,31 @@ class KnowPhones {
                 )
             )
         ];
+    }
+
+    /**
+     * From something which looks like a phone number
+     * try and validate it
+     *
+     * @param {Array}  numbers  Array of numbers
+     * @returns {Array}  Valid phone numbesr
+     * @memberof KnowPhones
+     */
+    validate(numbers) {
+        const validatedNumbers = [];
+
+        for (let i = 0; i < numbers.length; i++) {
+            const currentNumber = numbers[i];
+            if (currentNumber.startsWith("+") || currentNumber.startsWith("00")) {
+                const countryCode = phoneFormat.countryForE164Number(currentNumber);
+
+                if(phoneFormat.isValidNumber(currentNumber, countryCode)) {
+                    validatedNumbers.push(phoneFormat.formatE164(countryCode, currentNumber));
+                }
+            }
+        }
+
+        return validatedNumbers;
     }
 
     /**
@@ -66,10 +100,10 @@ class KnowPhones {
      * Run regex on a line, returning results and removing duplicates
      *
      * @param {String}  line  A word to run regex on
-     * @returns
+     * @returns {Array}  Phone numbers found via regex
      * @memberof KnowPhones
      */
-    validate(line) {
+    runRegex(line) {
         const results = [];
         for (let x = 0; x < regex.length; x++) {
             const currentRegex = regex[x];
