@@ -17,7 +17,7 @@ describe("phones_plugin", () => {
             ];
             const plugin = new PhonesPlugin();
             plugin.grabHrefTel = jest.fn(() => phones[0].split("tel:")[1].split("'")[0]);
-            plugin.validate = jest.fn(() => [phones[1]]);
+            plugin.runRegex = jest.fn(() => [phones[1]]);
 
             expect(plugin.main(phones)).toEqual(
                 [
@@ -26,7 +26,7 @@ describe("phones_plugin", () => {
                 ]
             );
             expect(plugin.grabHrefTel.mock.calls.length).toEqual(phones.length);
-            expect(plugin.validate.mock.calls.length).toEqual(phones.length);
+            expect(plugin.runRegex.mock.calls.length).toEqual(phones.length);
         });
         it("should return an empty array on no results", () => {
             const lines = [
@@ -54,26 +54,26 @@ describe("phones_plugin", () => {
             expect(plugin.grabHrefTel(line)).toBeNull();
         });
     });
-    describe("validate", () => {
+    describe("runRegex", () => {
         it("should return results", () => {
             const number = "+441632960983";
             const line = `Here is some text with ${number} inside of it`;
             const plugin = new PhonesPlugin();
 
-            expect(plugin.validate(line)).toEqual([number]);
+            expect(plugin.runRegex(line)).toEqual([number]);
         });
         it("should return an empty array on no results", () => {
             const line = "bunch of words, nothing with a number inside";
             const plugin = new PhonesPlugin();
 
-            expect(plugin.validate(line)).toEqual([]);
+            expect(plugin.runRegex(line)).toEqual([]);
         });
         it("should remove duplicates", () => {
             const number = "+441632960983";
             const line = `two numbers, ${number} and ${number}`;
             const plugin = new PhonesPlugin();
 
-            expect(plugin.validate(line).length).toEqual(1);
+            expect(plugin.runRegex(line).length).toEqual(1);
         });
     });
 });
