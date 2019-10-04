@@ -80,7 +80,10 @@ class KnowParser {
     }
 
     get lines() {
-        if (!this._text) {
+        if (
+            !this._text ||
+            (!Array.isArray(this._text) && typeof this._text !== "string")
+        ) {
             return [];
         }
         return this._text.split("\n");
