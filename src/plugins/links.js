@@ -14,12 +14,15 @@ class KnowLinks {
      * @returns
      * @memberof KnowLinks
      */
-    main(lines) {
-        const links = [];
+    main(lines, filter) {
+        let links = [];
         for (let i = 0; i < lines.length; i++) {
             const currentLine = lines[i];
-
             links.push(...this.grabURL(currentLine));
+        }
+
+        if (filter && Array.isArray(filter) && filter.length) {
+            links = this.filterResults(links, filter);
         }
 
         return [
@@ -41,6 +44,24 @@ class KnowLinks {
         const results = line.match(regex);
 
         return results || [];
+    }
+
+    /**
+     * Filters out urls not matching the passed filter
+     *
+     * @param {Array}  links   Links found in this plugin
+     * @param {Array}  filter  The filter e.g. ["facebook.com"]
+     * @returns
+     * @memberof KnowLinks
+     */
+    filterResults(links, filter) {
+        return links.filter(link => {
+            for (let i = 0; i < filter.length; i++) {
+                if (link.includes(filter[i])) {
+                    return true;
+                }
+            }
+        });
     }
 }
 
