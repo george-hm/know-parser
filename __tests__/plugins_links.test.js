@@ -19,9 +19,12 @@ describe("links_plugin", () => {
                 "www.example.com"
             ];
             const plugin = new LinksPlugin();
-            plugin.grabURL = jest.fn((line) => [line]);
+            plugin.grabURL = jest.fn(line => [line]);
+            plugin.filterResults = jest.fn();
 
             expect(plugin.main(lines)).toEqual(lines);
+            expect(plugin.grabURL.mock.calls.length).toEqual(lines.length);
+            expect(plugin.filterResults.mock.calls.length).toEqual(0);
         });
         it("should not return duplicates", () => {
             const lines = [
@@ -43,6 +46,22 @@ describe("links_plugin", () => {
             plugin.grabURL = jest.fn(() => []);
 
             expect(plugin.main(lines)).toEqual([]);
+        });
+        it ("should allow filters", () => {
+            const lines = [
+                "www.example.com",
+                "www.example.com",
+                "https://www.google.com",
+                "WHAT"
+            ];
+            const filter = ["abc"];
+            const plugin = new LinksPlugin();
+            plugin.grabURL = jest.fn(line => [line]);
+            plugin.filterResults = jest.fn(lines => lines);
+
+            plugin.main(lines, filter);
+            expect(plugin.grabURL.mock.calls.length).toEqual(lines.length);
+            expect(plugin.filterResults.mock.calls.length).toEqual(1);
         });
     });
     describe("grabURL", () => {
@@ -73,6 +92,34 @@ describe("links_plugin", () => {
 
             const plugin = new LinksPlugin();
             expect(plugin.grabURL(line)).toEqual([]);
+        });
+    });
+    describe("filterResults", () => {
+        it("should return results", () => {
+            const links = [
+                "https://example.com",
+                "https://google.com"
+            ];
+            const filter = [
+                "google"
+            ];
+
+            const plugin = new LinksPlugin();
+
+            expect(plugin.main(links, filter)).toEqual([links[1]]);
+        });
+        it("should return no results on no filter matches", () => {
+            const links = [
+                "https://www.google.com",
+                "https://example.com"
+            ];
+            const filter = [
+                "example.net"
+            ];
+
+            const plugin = new LinksPlugin();
+
+            expect(plugin.main(links, filter)).toEqual([]);
         });
     });
 });
