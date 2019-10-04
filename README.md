@@ -84,6 +84,13 @@ const links = knowParser.get('links');
 console.log(links); // An array of links (starting with http/https/www) e.g. "https://www.example.com"
 ```
 
+You can also filter results like so:
+
+```javascript
+const links = knowParser.get('links', ['google.com'])
+console.log(links) // An array of links including 'google.com'
+```
+
 ### domains
 
 ```javascript
