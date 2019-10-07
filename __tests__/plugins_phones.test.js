@@ -37,6 +37,19 @@ describe("phones_plugin", () => {
 
             expect(plugin.main(lines)).toEqual([]);
         });
+        it("should remove duplicates", () => {
+            const numbers = [
+                "+441632960983",
+                "+4401632960983",
+                "+44(0)1632960983"
+            ];
+            const line = `two numbers, ${numbers[0]} and ${numbers[0]}, and even ${numbers[1]} finally ${numbers[2]}`;
+            const plugin = new PhonesPlugin();
+
+            const result = plugin.main([line]);
+            expect(result).toEqual([numbers[0]]);
+            expect(result.length).toEqual(1);
+        });
     });
     describe("grabHrefTel", () => {
         it("should return a number", () => {
