@@ -40,14 +40,25 @@ class KnowPhones {
 
         numsFound.push(...this.validate(toLookup));
 
-        // return the numbers, no duplicates
-        return [
+
+        const toReturn = [
             ...new Set(
                 numsFound.map(
-                    num => num.replace(/\s/g, "").replace(/-/g, "").replace(/\./g, "")
+                    num => num.replace(/(?:\s|-|\.|\\|\(|\))/g, "")
                 )
             )
         ];
+
+        for (let i = 0; i < toReturn.length; i++) {
+            const num = toReturn[i];
+            if (num.startsWith("+440")) {
+                if (toReturn.includes(num.replace("+440", "+44"))) {
+                    toReturn.splice(i, 1);
+                }
+            }
+        }
+        // return the numbers, no duplicates
+        return toReturn;
     }
 
     /**
