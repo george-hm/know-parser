@@ -9,7 +9,7 @@
   "main": "./src/knowParser.js",
   "scripts": {
     "test": "jshint ./src && jest ./__tests__/*.test.js --verbose",
-    "coverage": "jshint ./src && jest ./__tests__/*.test.js --coverage --coverageReporters=text-lcov && cat ./coverage/lcov.info | coveralls"
+    "coverage": "jshint ./src && jest ./__tests__/*.test.js --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "data",
