@@ -44,7 +44,7 @@ class KnowPhones {
         const toReturn = [
             ...new Set(
                 numsFound.map(
-                    num => num.replace(/(?:\s|-|\.|\\|\(|\))/g, "")
+                    num => num.replace(/(?:\s|-|\.|\\|\(|\)|\/)/g, "")
                 )
             )
         ];
