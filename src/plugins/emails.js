@@ -15,15 +15,11 @@ class KnowEmails {
      * @memberof KnowEmails
      */
     main(lines) {
-        const lineList = lines;
+        const lineList = lines.filter(line => line.includes("@"));
         const emails = [];
 
         for (let i = 0; i < lineList.length; i++) {
             const line = lineList[i];
-
-            if (!/@.+\.(.)+$/.test(line)) {
-                continue;
-            }
 
             emails.push(...this.extractEmails(line));
         }
