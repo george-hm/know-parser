@@ -1,4 +1,3 @@
-const phoneFormat = require("phoneformat.js");
 /**
  * Gathers from numbers from a piece of text
  *
@@ -11,7 +10,7 @@ const regex = [
     /[+]44(7|1)\d{9}/g,
     /^([0-9]{3})-?([0-9]{3})-([0-9]{4})/g
 ];
-const hrefRegex = /href="tel:([^"]+)"/g;
+const hrefRegex = /href="tel:([\d\s()+-/]+)"/g;
 class KnowPhones {
 
     /**
@@ -33,11 +32,11 @@ class KnowPhones {
             .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, " ")
             .replace(/<[^>]*>/ig, " ")
             .replace(/\n/g, '')
-            .replace(/\s{3,}/g, ' breaker ')
-            .replace(/tel/gi, ' breaker tel')
-            .replace(/phone/gi, ' breaker phone')
-            .replace(/fax/gi, ' breaker fax')
-            .split('breaker');
+            .replace(/\s{3,}/g, ' knowparserbreaker ')
+            .replace(/tel/gi, ' knowparserbreaker tel')
+            .replace(/phone/gi, ' knowparserbreaker phone')
+            .replace(/fax/gi, ' knowparserbreaker fax')
+            .split('knowparserbreaker');
 
         for (let i = 0; i < lineList.length; i++) {
             let line = lineList[i];
