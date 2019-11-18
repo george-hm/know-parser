@@ -6,10 +6,10 @@ const phoneFormat = require("phoneformat.js");
  * @author George Meadows, Robert Langton
  */
 const regex = [
-    /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)(-)?([0-9]{8,9}$|[0-9\-\s]{9,13})/g,
+    /(^\+[0-9]{2}|^\+[0-9]{2}0|^00[0-9]{2}|^0)(-)?([0-9]{8,9}$|[0-9\-\s]{9,13})/g,
     /(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))/g,
     /[+]44(7|1)\d{9}/g,
-    /^([0-9]{3})\)?-?([0-9]{3})-([0-9]{4})/g
+    /^([0-9]{3})-?([0-9]{3})-([0-9]{4})/g
 ];
 const hrefRegex = /href="tel:([^"]+)"/g;
 class KnowPhones {
@@ -50,7 +50,7 @@ class KnowPhones {
             // Removes everything before the phone number & gets it ready for the regex
             line = line
                 .replace(/^[^\d+]*/, "")
-                .replace(/\s/g, "");
+                .replace(/[\s()]/g, "");
 
             numsFound.push(...this.runRegex(line));
         }
@@ -86,6 +86,13 @@ class KnowPhones {
         const phones = [];
         let matches;
         while((matches = hrefRegex.exec(line)) !== null) {
+            if(matches[1].includes('/')) {
+                phones.push(...matches[1]
+                    .split('/')
+                    .map((el) => el.trim())
+                );
+                continue;
+            }
             phones.push(matches[1]);
         }
         return phones;
