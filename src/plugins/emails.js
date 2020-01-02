@@ -1,4 +1,4 @@
-const regex = /(([^<>()\[\]\\.,;:\s@"\/?=]+(?!png|jpg|jpeg|zvg)(\.[^<>()\[\]\\.,;:\s@"\/=?]+)*(?!png|jpg|jpeg|zvg)))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+((?!png|jpg|jpeg|zvg)[a-zA-Z]{2,})))/gi;
+const regex = /(([^<>()\[\]\\.,;:\s@"'\/?=]+(?!png|jpg|jpeg|zvg)(\.[^<>()\[\]\\.,;:\s@"\/=?]+)*(?!png|jpg|jpeg|zvg)))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+((?!png|jpg|jpeg|zvg)[a-zA-Z]{2,})))/gi;
 /**
  * A know-parser plugin to gather email addresses
  *
