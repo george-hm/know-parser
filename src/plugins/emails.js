@@ -6,7 +6,6 @@ const regex = /(([^<>()\[\]\\.,;:\s@"'\/?=]+(?!png|jpg|jpeg|zvg)(\.[^<>()\[\]\\.
  * @author George Meadows
  */
 class KnowEmails {
-
     /**
      * Gathers email addresses from an array of strings
      *
@@ -15,7 +14,7 @@ class KnowEmails {
      * @memberof KnowEmails
      */
     main(lines) {
-        const lineList = lines.filter(line => line.includes("@"));
+        const lineList = lines.filter(line => line.includes('@'));
         const emails = [];
 
         for (let i = 0; i < lineList.length; i++) {
@@ -39,15 +38,13 @@ class KnowEmails {
             return [];
         }
 
-        if (Array.isArray(query)) {
-            query = query.join(" ");
-        }
+        const finalQuery = Array.isArray(query) ? query.join(' ') : query;
 
-        if (!query.includes("@")) {
+        if (!finalQuery.includes('@')) {
             return [];
         }
 
-        const results = query.match(regex);
+        const results = finalQuery.match(regex);
         return results || [];
     }
 }

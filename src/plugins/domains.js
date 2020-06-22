@@ -1,4 +1,4 @@
-const parseDomain = require("parse-domain");
+const parseDomain = require('parse-domain');
 
 /**
  * A know-parser plugin which returns all domains found in a piece of text
@@ -7,7 +7,6 @@ const parseDomain = require("parse-domain");
  * @author George Meadows
  */
 class KnowDomains {
-
     /**
      * Creates an instance of KnowDomains.
      *
@@ -25,7 +24,7 @@ class KnowDomains {
      * @memberof KnowDomains
      */
     main() {
-        const links = this._knowParser.get("links");
+        const links = this._knowParser.get('links');
         const domains = [];
 
         for (let i = 0; i < links.length; i++) {
@@ -38,8 +37,8 @@ class KnowDomains {
 
         return [
             ...new Set(
-                domains.filter(_=>_)
-            )
+                domains.filter(_ => _),
+            ),
         ];
     }
 }

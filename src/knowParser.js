@@ -1,7 +1,6 @@
-const defaultPlugins = require("./plugins");
+const defaultPlugins = require('./plugins');
 
 class KnowParser {
-
     /**
      * Creates an instance of KnowParser.
      *
@@ -9,7 +8,7 @@ class KnowParser {
      * @memberof KnowParser
      */
     constructor(text) {
-        this.lines = text || "";
+        this.lines = text || '';
         this._plugins = {};
 
         // register default plugins
@@ -27,27 +26,27 @@ class KnowParser {
      * @memberof KnowParser
      */
     register(plugin, name) {
-
         // validate that we have a know-parser plugin
         if (
             !plugin ||
-            typeof plugin !== "function" ||
+            typeof plugin !== 'function' ||
             !plugin.prototype ||
             !plugin.prototype.constructor.name ||
             !plugin.prototype.main
         ) {
-            throw new Error("know-parser - failed to register plugin. Is it a class with 'main' method?");
+            throw new Error('know-parser - failed to register plugin. Is it a class with \'main\' method?');
         }
 
-        if (!name) {
-            name = plugin.prototype.constructor.name;
+        let nameToUse = name;
+        if (!nameToUse) {
+            nameToUse = plugin.prototype.constructor.name;
         }
 
-        if (this._plugins[name]) {
-            throw new Error("know-parser - plugin already registered.");
+        if (this._plugins[nameToUse]) {
+            throw new Error('know-parser - plugin already registered.');
         }
 
-        this._plugins[name] = new plugin(this);
+        this._plugins[nameToUse] = new plugin(this);
 
         return this;
     }
@@ -72,21 +71,18 @@ class KnowParser {
      * @memberof KnowParser
      */
     set lines(text) {
-        if (Array.isArray(text)) {
-            text = text.join("\n");
-        }
-        this._text = text;
+        this._text = Array.isArray(text) ? text.join('\n') : text;
         return this._text;
     }
 
     get lines() {
         if (
             !this._text ||
-            (!Array.isArray(this._text) && typeof this._text !== "string")
+            (!Array.isArray(this._text) && typeof this._text !== 'string')
         ) {
             return [];
         }
-        return this._text.split("\n");
+        return this._text.split('\n');
     }
 
     /**
@@ -102,7 +98,7 @@ class KnowParser {
             return [];
         }
 
-        //We will pass each plugin a clone of .lines for safety
+        // We will pass each plugin a clone of .lines for safety
         const lines = Array.from(this.lines);
         try {
             return this._plugins[pluginName].main(lines, ...args);

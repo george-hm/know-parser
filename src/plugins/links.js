@@ -5,7 +5,6 @@
  * @author George Meadows
  */
 class KnowLinks {
-
     /**
      * Returns an array of links found in the text.
      * Duplicates removed.
@@ -26,7 +25,7 @@ class KnowLinks {
         }
 
         return [
-            ... new Set(links)
+            ...new Set(links),
         ];
     }
 
@@ -61,6 +60,8 @@ class KnowLinks {
                     return true;
                 }
             }
+
+            return false;
         });
     }
 }
