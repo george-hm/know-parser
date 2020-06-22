@@ -8,8 +8,9 @@
   },
   "main": "./src/knowParser.js",
   "scripts": {
-    "test": "jshint ./src && jest ./__tests__/*.test.js --verbose",
-    "coverage": "jshint ./src && jest ./__tests__/*.test.js --coverage && cat ./coverage/lcov.info | coveralls"
+    "lint": "eslint ./src",
+    "test": "jest ./__tests__/*.test.js",
+    "coverage": "jest ./__tests__/*.test.js --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "data",
@@ -31,8 +32,10 @@
   "devDependencies": {
     "axios": "^0.19.0",
     "coveralls": "^3.0.6",
-    "jest": "^24.9.0",
-    "jshint": "^2.10.2"
+    "eslint": "6.8",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "jest": "^24.9.0"
   },
   "bugs": {
     "url": "https://github.com/george-hm/know-parser/issues",
