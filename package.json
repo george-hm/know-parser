@@ -41,8 +41,5 @@
     "url": "https://github.com/george-hm/know-parser/issues",
     "email": "georgehm@pm.me"
   },
-  "homepage": "https://github.com/george-hm/know-parser/",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "homepage": "https://github.com/george-hm/know-parser/"
 }
