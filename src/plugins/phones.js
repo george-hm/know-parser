@@ -10,7 +10,7 @@ const regex = [
     /[+]44(7|1)\d{9}/g,
     /^([0-9]{3})-?([0-9]{3})-([0-9]{4})/g,
 ];
-const hrefRegex = /href="tel:([\d\s()+-/]+)"/g;
+const hrefRegex = /href="tel:([\d\s()+-\/]+\d[\d\s()+-\/]+)"/g;
 class KnowPhones {
     /**
      * Gathers phone numbers from a string
@@ -69,8 +69,8 @@ class KnowPhones {
                 }
             }
         }
-        // return the numbers, no duplicates
-        return toReturn;
+        // return the numbers, no duplicates, filter out errors
+        return toReturn.filter(num => (/\d/.test(num)));
     }
 
     /**
