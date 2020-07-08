@@ -22,7 +22,6 @@ describe("phones_plugin", () => {
             expect(plugin.main(phones)).toEqual(
                 [
                     phones[0].split("tel:")[1].split("\"")[0].replace(/\s/g, ""),
-                    phones[0].split("<tag>")[1].replace(/\s/g, "")
                 ]
             );
             expect(plugin.grabHrefTel.mock.calls.length).toEqual(1);
