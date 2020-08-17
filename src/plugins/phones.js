@@ -8,9 +8,10 @@ const regex = [
     /(^\+[0-9]{2}|^\+[0-9]{2}0|^00[0-9]{2}|^0)(-)?([0-9]{8,9}$|[0-9\s]{9,13})/g,
     /(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))/g,
     /[+]44(7|1)\d{9}/g,
-    /^([0-9]{3})-?([0-9]{3})-([0-9]{4})/g,
+    /([0-9]{3})[-.]?([0-9]{3})[-.]([0-9]{4})/g,
+    /^[0-9]{10}$/
 ];
-const hrefRegex = /href="tel:([\d\s()+-/]+)"/g;
+const hrefRegex = /href="tel:([\d\s()+-\/]+\d[\d\s()+-\/]+)"/g;
 class KnowPhones {
     /**
      * Gathers phone numbers from a string
@@ -69,8 +70,8 @@ class KnowPhones {
                 }
             }
         }
-        // return the numbers, no duplicates
-        return toReturn;
+        // return the numbers, no duplicates, filter out errors
+        return toReturn.filter(num => (/\d/.test(num)));
     }
 
     /**
