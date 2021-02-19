@@ -36,7 +36,19 @@ class KnowPhones {
             .replace(/tel/gi, 'knowparserbreaker tel')
             .replace(/phone/gi, 'knowparserbreaker phone')
             .replace(/fax/gi, 'knowparserbreaker fax')
-            .split('knowparserbreaker');
+            .split('knowparserbreaker')
+            .filter(line => {
+                if (!line) {
+                    return false;
+                }
+
+                const nums = /[0-9]/;
+                if (!line.match(nums)) {
+                    return false;
+                }
+
+                return true;
+            });
 
         for (let i = 0; i < lineList.length; i++) {
             let line = lineList[i];
