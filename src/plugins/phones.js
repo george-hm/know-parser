@@ -31,11 +31,11 @@ class KnowPhones {
             .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
             .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ')
             .replace(/<[^>]*>/ig, ' ')
-            .replace(/\n/g, '')
-            .replace(/\s{3,}/g, ' knowparserbreaker ')
-            .replace(/tel/gi, ' knowparserbreaker tel')
-            .replace(/phone/gi, ' knowparserbreaker phone')
-            .replace(/fax/gi, ' knowparserbreaker fax')
+            .replace(/\n/g, 'knowparserbreaker')
+            .replace(/\s{3,}/g, 'knowparserbreaker')
+            .replace(/tel/gi, 'knowparserbreaker tel')
+            .replace(/phone/gi, 'knowparserbreaker phone')
+            .replace(/fax/gi, 'knowparserbreaker fax')
             .split('knowparserbreaker');
 
         for (let i = 0; i < lineList.length; i++) {
