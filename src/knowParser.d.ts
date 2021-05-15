@@ -15,8 +15,14 @@ export default class KnowParser {
      */
     unregister(pluginName: string): this;
 
+    // annoyingly get and set must have the same types
+    // however lines only returns string[]
+    // but to set lines we accept string and string[]
+    // I've set both to return string[] here
+    // because allow setting of lines as string is very useful (e.g. not splitting lines yourself)
     set lines(text: string|string[]);
-    get lines(): string[];
+    get lines(): string|string[];
+
     /**
      * Call a know-parser plugin
      */
@@ -25,5 +31,5 @@ export default class KnowParser {
 
 declare class Plugin {
     constructor(knowParser: KnowParser);
-    main(lines: string[], ...args?: any[]): any
+    main(lines: string[], ...args: any[]): any
 }
