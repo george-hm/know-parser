@@ -1,4 +1,4 @@
-declare class KnowParser {
+export default class KnowParser {
     /**
      * Creates an instance of KnowParser.
      *
@@ -9,7 +9,7 @@ declare class KnowParser {
     /**
      * Register your custom plugin with know-parser.
      */
-    register(plugin: Plugin, name?: string): this;
+    register(plugin: typeof Plugin, name?: string): this;
     /**
      * Unregister a know-parser plugin
      */
